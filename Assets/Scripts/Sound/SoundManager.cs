@@ -36,11 +36,11 @@ namespace Code.Sound
         [SerializeField] private AudioSource _musicAS;
         [SerializeField] private AudioSource _clickAS;
 
-        public bool Muted(SoundSettingType type)
+        public bool Unmuted(SoundSettingType type)
         {
             float value;
             _mixer.GetFloat(s_mixerKeys[type], out value);
-            return value == MUTED;
+            return value == UNMUTED;
         }
 
         private void Awake()
@@ -50,7 +50,6 @@ namespace Code.Sound
                 s_instance = this;
                 SoundSettingsButton.SoundSettingsToggled += OnSoundSettingToggled;
                 OnUIPointerDown.SelectablePoiterDown += PlayClickSound;
-                Debug.Log("Subcried");
             }
             else
             {
@@ -70,7 +69,7 @@ namespace Code.Sound
 
         private void OnSoundSettingToggled(SoundSettingType type)
         {
-            float newValue = Muted(type) ? UNMUTED : MUTED;
+            float newValue = Unmuted(type) ? MUTED : UNMUTED;
             _mixer.SetFloat(s_mixerKeys[type], newValue);
             SettingChanged?.Invoke();
         }

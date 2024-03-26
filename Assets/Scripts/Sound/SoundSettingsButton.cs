@@ -19,15 +19,23 @@ namespace Code.Sound
 
         private void OnEnable()
         {
+            SoundManager.SettingChanged += OnSettingChanged;
             _toggle.onClick.AddListener(OnButtonClicked);
-            _toggle.SetStatus(!SoundManager.Instance.Muted(_type));
+            _toggle.SetStatus(SoundManager.Instance.Unmuted(_type));
         }
 
         private void OnDisable()
         {
+            SoundManager.SettingChanged -= OnSettingChanged;
             _toggle.onClick.RemoveListener(OnButtonClicked);
         }
 
         private void OnButtonClicked() => SoundSettingsToggled?.Invoke(_type);
+        private void OnSettingChanged()
+        {
+            bool unmuted = SoundManager.Instance.Unmuted(_type);
+            if (_toggle.Status != unmuted)
+                _toggle.SetStatus(unmuted);
+        }
     }
 }
