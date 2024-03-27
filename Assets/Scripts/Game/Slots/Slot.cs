@@ -5,8 +5,8 @@ namespace Code.Game.Slots
 {
     public class Slot : MonoBehaviour
     {
-        private Image _image;
-        private SlotSO _data;
+        [SerializeField] private Image _image;
+        [SerializeField] private SlotSO _data;
         public float Multiplier => _data.Multiplier;
         public SlotSO Data => _data;
 
@@ -16,19 +16,27 @@ namespace Code.Game.Slots
             _image.sprite = _data.Icon;
         }
 
-        public void ChangeTypeToRandom()
+        public void ChangeTypeToRandom(SlotsCatalog catalog)
         {
-
+            Init(catalog.GetRandomData());
         }
 
         public void ShowMultiplier()
         {
-
+            Debug.Log(_data.Multiplier);
         }
 
         private void Awake()
         {
             _image = GetComponent<Image>();
+            if (_data != null)
+                Init(_data);
+        }
+
+        private void OnValidate()
+        {
+            if (_data != null)
+                Init(_data);
         }
     }
 }

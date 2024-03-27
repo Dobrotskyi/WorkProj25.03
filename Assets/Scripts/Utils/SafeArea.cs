@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Code.Utils
 {
     [RequireComponent(typeof(RectTransform))]
-    public class SafeArea : MonoBehaviour
+    public class SafeZone : MonoBehaviour
     {
         private void Awake()
         {

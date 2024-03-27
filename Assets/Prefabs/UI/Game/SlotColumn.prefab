@@ -210,6 +210,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _catalog: {fileID: 11400000, guid: a98f4e190b3914a49bed0f9b37acc4a6, type: 2}
   testSpawn: 0
   testSpin: 0
 --- !u!1 &5669934131085973825

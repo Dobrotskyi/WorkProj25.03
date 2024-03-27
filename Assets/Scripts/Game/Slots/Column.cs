@@ -15,6 +15,7 @@ namespace Code.Game.Slots
 
         [SerializeField] private VerticalLayoutGroup _movingPart;
         [SerializeField] private AnimationCurve _spinningCurve;
+        [SerializeField] private SlotsCatalog _catalog;
         private RectTransform _movingPartRect;
 
         public bool IsSpinning { private set; get; }
@@ -74,7 +75,7 @@ namespace Code.Game.Slots
             Transform newSlotGroup = Instantiate(slotGroup, _movingPart.transform);
             var newSlots = newSlotGroup.transform.GetComponentsInChildren<Slot>();
             foreach (var slot in newSlots)
-                slot.ChangeTypeToRandom();
+                slot.ChangeTypeToRandom(_catalog);
             CallRebuilder();
             yield return new WaitForEndOfFrame();
         }

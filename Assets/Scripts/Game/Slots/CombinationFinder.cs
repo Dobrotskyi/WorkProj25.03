@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Code.Game.Slots
 {
@@ -26,79 +27,67 @@ namespace Code.Game.Slots
 
             public override int GetHashCode()
             {
-                return Slot.Data.GetHashCode(); ;
+                return Slot.Data.GetHashCode();
             }
         }
 
-        public HashSet<Slot> FindIn(List<Column> columns)
-        {
-            List<Cell> cells = new() { };
-            LinkedList<List<Cell>> slotField = new();
-            foreach (var column in columns)
-            {
-                foreach (var slot in column.GetSlotsInColumn())
-                    cells.Add(new Cell(slot));
 
-                slotField.AddLast(cells.ToList());
-                cells.Clear();
+        public (HashSet<Slot>, HashSet<Slot>) FindInColumns(List<Column> columns)
+        {
+            List<List<Cell>> columnCells = new();
+            for (int i = 0; i < columns.Count; i++)
+            {
+                var slots = columns[i].GetSlotsInColumn();
+                columnCells.Add(new());
+                for (int j = 0; j < slots.Count; j++)
+                    columnCells[columnCells.Count - 1].Add(new(slots[j]));
+
             }
 
-            List<Slot> found = new();
-            List<Cell> first = slotField.First.Value;
-            for (int i = 0; i < first.Count; i++)
+            HashSet<Slot> mainMatches = FindInCell(columnCells);
+            HashSet<Slot> otherMatches = new();
+
+            Stack<List<Cell>> columnsSt = new(columnCells);
+            for (int i = 1; i < columns.Count; i++)
             {
-                var neighbours = SearchForNeighbours(slotField.First, i, false);
-                if (neighbours.Count > 1)
+                otherMatches.UnionWith(FindInCell(columnsSt.ToList()));
+                columnsSt.Pop();
+            }
+
+            otherMatches.ExceptWith(mainMatches);
+            Debug.Log($"Main matches {mainMatches.Count}");
+            Debug.Log($"Other matches {otherMatches.Count}");
+            return (mainMatches, otherMatches);
+        }
+
+        private HashSet<Slot> FindInCell(List<List<Cell>> columns)
+        {
+            List<Cell> matches = new();
+            var firstRowSlots = columns[0];
+            List<Cell> matchesInRow = new();
+            foreach (var slot in firstRowSlots)
+            {
+                if (slot.Visited)
+                    continue;
+                matchesInRow.Clear();
+                bool found = false;
+                for (int i = 1; i < columns.Count; i++)
                 {
-                    found.AddRange(neighbours.Select(n => n.Slot));
-                    if (i - 1 >= 0)
-                        if (first[i].Equals(first[i - 1]))
-                            found.Add(first[i - 1].Slot);
-
-                    if (i + 1 < first.Count)
-                        if (first[i].Equals(first[i + 1]))
-                            found.Add(first[i + 1].Slot);
+                    var slotsInRow = columns[i];
+                    matchesInRow.AddRange(slotsInRow.Where(s => s.Equals(slot)).ToList());
+                    if (matchesInRow.Count > 0)
+                    {
+                        matches.AddRange(matchesInRow);
+                        matchesInRow.Clear();
+                        found = true;
+                    }
+                    else
+                        break;
                 }
+                if (found)
+                    matches.AddRange(firstRowSlots.Where(s => s.Equals(slot)));
             }
-            HashSet<Slot> matches = new(found);
-            return matches;
-        }
-
-        private List<Cell> SearchForNeighbours(LinkedListNode<List<Cell>> node, int cellIndex, bool seachInVertOnFirst = true)
-        {
-            Cell cell = node.Value[cellIndex];
-            List<Cell> result = new() { cell };
-            if (cell.Visited)
-                return result;
-            cell.Visited = true;
-
-            if (cellIndex - 1 >= 0 && node.Next != null)
-            {
-                if (node.Next.Value[cellIndex - 1].Equals(cell))
-                    result.AddRange(SearchForNeighbours(node.Next, cellIndex - 1));
-            }
-
-            if (cellIndex + 1 < node.Value.Count && node.Next != null)
-            {
-                if (node.Next.Value[cellIndex + 1].Equals(cell))
-                    result.AddRange(SearchForNeighbours(node.Next, cellIndex + 1));
-            }
-
-            if (seachInVertOnFirst)
-            {
-                if (cellIndex - 1 >= 0)
-                    if (node.Value[cellIndex - 1].Equals(cell))
-                        result.AddRange(SearchForNeighbours(node, cellIndex - 1));
-
-                if (cellIndex + 1 < node.Value.Count)
-                    if (node.Value[cellIndex + 1].Equals(cell))
-                        result.AddRange(SearchForNeighbours(node, cellIndex + 1));
-            }
-
-            if (node.Next != null && node.Next.Value[cellIndex].Equals(cell))
-                result.AddRange(SearchForNeighbours(node.Next, cellIndex));
-
-            return result;
+            return new(matches.Select(m => m.Slot));
         }
     }
 }
