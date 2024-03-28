@@ -308,6 +308,34 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6675487169596947687, guid: 6233961f37580f344ba170822de45ebb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6675487169596947687, guid: 6233961f37580f344ba170822de45ebb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6675487169596947687, guid: 6233961f37580f344ba170822de45ebb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1168321148175068213}
+    - target: {fileID: 6675487169596947687, guid: 6233961f37580f344ba170822de45ebb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6675487169596947687, guid: 6233961f37580f344ba170822de45ebb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Toggle
+      objectReference: {fileID: 0}
+    - target: {fileID: 6675487169596947687, guid: 6233961f37580f344ba170822de45ebb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Code.UI.ToggleButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6675487169596947687, guid: 6233961f37580f344ba170822de45ebb, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -319,6 +347,17 @@ PrefabInstance:
       addedObject: {fileID: 3359643698975000132}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6233961f37580f344ba170822de45ebb, type: 3}
+--- !u!114 &1168321148175068213 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6569486648609805201, guid: 6233961f37580f344ba170822de45ebb, type: 3}
+  m_PrefabInstance: {fileID: 5412540224192528292}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8699921f57b8dd46b191c174feca45d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8901635749759974238 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3500917749584905466, guid: 6233961f37580f344ba170822de45ebb, type: 3}

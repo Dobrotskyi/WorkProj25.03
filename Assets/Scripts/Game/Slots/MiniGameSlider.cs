@@ -11,8 +11,7 @@ namespace Code.Game.Slots
         [SerializeField] private Sprite _defaultFill;
         [SerializeField] private Image _fillImage;
         [SerializeField] private TextMeshProUGUI _levelField;
-
-        public Slider Slider => _slider;
+        private Button _button;
 
         public void SetValue(float value)
         {
@@ -39,11 +38,22 @@ namespace Code.Game.Slots
                 if (_fillImage.sprite == _completedFill)
                     _fillImage.sprite = _defaultFill;
             }
+
+            if (_slider.value == _slider.maxValue && !_button.interactable)
+            {
+                _button.interactable = true;
+            }
         }
 
         private void OnValidate()
         {
             OnValueChanged();
+        }
+
+        private void OnEnable()
+        {
+            _button = GetComponent<Button>();
+            _button.interactable = false;
         }
     }
 }

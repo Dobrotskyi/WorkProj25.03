@@ -17,6 +17,7 @@ namespace Code.UI
 
         public bool Status => _iconOnGO.activeSelf;
 
+        public void Toggle() => SetStatus(!Status);
         public void SetStatus(bool status)
         {
             _iconOnGO.SetActive(status);

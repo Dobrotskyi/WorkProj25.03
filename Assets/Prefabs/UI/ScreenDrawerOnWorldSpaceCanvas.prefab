@@ -154,4 +154,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderer: {fileID: 8424747309765205641}
   _minDistance: 0.1
-  _sensetivity: 0.5
+  _sensetivity: 0.8

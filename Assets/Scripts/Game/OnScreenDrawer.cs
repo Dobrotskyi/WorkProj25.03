@@ -9,6 +9,24 @@ namespace Code.Game
         [SerializeField] private float _sensetivity = 0.5f;
         private Vector2 _previousPosition;
         private Vector2 _startPosition = Vector2.zero;
+        private bool _isOn = true;
+
+        public bool Blocked;
+
+        public Vector2 WorldSpaceCurrentPositon => _renderer.GetPosition(_renderer.positionCount - 1);
+
+        public void TurnOn(Vector2 startPosition)
+        {
+            _isOn = true;
+            _renderer.positionCount = 1;
+            _renderer.SetPosition(0, startPosition);
+        }
+
+        public void TurnOff()
+        {
+            _renderer.positionCount = 1;
+            _isOn = false;
+        }
 
         private void OnEnable()
         {
@@ -17,7 +35,7 @@ namespace Code.Game
 
         private void Update()
         {
-            if (Input.touchCount > 0)
+            if (Input.touchCount > 0 && _isOn && !Blocked)
             {
                 if (Input.touches[0].phase == TouchPhase.Began)
                     _startPosition = Camera.main.ScreenToWorldPoint(Input.touches[0].position);

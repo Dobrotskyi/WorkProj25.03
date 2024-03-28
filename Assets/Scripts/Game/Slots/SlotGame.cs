@@ -1,3 +1,4 @@
+using Code.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,9 @@ namespace Code.Game.Slots
         [SerializeField] private Button _spinButton;
         [SerializeField] private List<MiniGameLevelInfo> _minigameInfo = new();
         [SerializeField] private MiniGameSlider _miniGameSlider;
+        [SerializeField] private Bet _bet;
+        [SerializeField] private WinningPopUp _winningPopUp;
+        [SerializeField] private GameObject _minigameLayout;
         private CombinationsFinder _finder;
         private float _additionalMultipliers = 0;
 
@@ -35,6 +39,13 @@ namespace Code.Game.Slots
             }
         }
 
+        public void LaunchMiniGame()
+        {
+            int level = GetLevel();
+            _minigameInfo[level].Layout.SetActive(true);
+            _minigameLayout.SetActive(true);
+        }
+
         public void StartGame()
         {
             if (InRound)
@@ -42,7 +53,9 @@ namespace Code.Game.Slots
             SpinStarted?.Invoke();
             InRound = true;
             _spinButton.interactable = false;
+            _bet.DisableButtons();
             StartCoroutine(StartSpinning());
+            PlayerCurrency.Withdraw(_bet.Value);
         }
 
         private IEnumerator StartSpinning()
@@ -63,11 +76,20 @@ namespace Code.Game.Slots
         private void OnEnable()
         {
             _columns[_columns.Count - 1].Stoped += OnLastColumnStoped;
+            MiniGameLevel.LevelFinished += OnLevelFinished;
         }
 
         private void OnDisable()
         {
             _columns[_columns.Count - 1].Stoped -= OnLastColumnStoped;
+            MiniGameLevel.LevelFinished -= OnLevelFinished;
+        }
+
+        private void OnLevelFinished(bool finished)
+        {
+            _minigameLayout.SetActive(false);
+            AdditionalMultipliers = 0;
+            UpdateMiniGameSlider();
         }
 
         private void OnLastColumnStoped()
@@ -79,24 +101,38 @@ namespace Code.Game.Slots
                 item.ShowMultiplier();
                 multipliers += item.Multiplier;
             }
+            if (multipliers > 0)
+            {
+                int winnings = (int)(multipliers * _bet.Value);
+                _winningPopUp.InitializeWinning(winnings);
+                _winningPopUp.gameObject.SetActive(true);
+                PlayerCurrency.Add(winnings);
+            }
+
             AdditionalMultipliers += mainAndSecondMatches.Item2.Sum(s => s.Data.Multiplier);
             UpdateMiniGameSlider();
             _spinButton.interactable = true;
+            _bet.EnableButtons();
             InRound = false;
         }
 
         private void UpdateMiniGameSlider()
         {
             _miniGameSlider.SetValue(AdditionalMultipliers);
+            _miniGameSlider.SetLevel(GetLevel());
+        }
+
+        private int GetLevel()
+        {
             for (int i = 0; i < _minigameInfo.Count; i++)
-            {
                 if (AdditionalMultipliers < _minigameInfo[i].Multipliers)
                 {
-                    _miniGameSlider.SetLevel(i);
-                    return;
+                    if (i == 0)
+                        return 0;
+                    return _minigameInfo[i - 1].Level;
                 }
-            }
-            _miniGameSlider.SetLevel(_minigameInfo.Count);
+
+            return _minigameInfo[_minigameInfo.Count - 1].Level;
         }
 
 #if UNITY_EDITOR
