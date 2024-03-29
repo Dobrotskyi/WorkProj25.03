@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Slot2
   m_EditorClassIdentifier: 
   _icon: {fileID: 21300000, guid: 96d7ef505c187b941ad73763ce38aad0, type: 3}
-  _multiplier: 0.2
+  _multiplier: 0.1

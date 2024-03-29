@@ -2,7 +2,6 @@ using Code.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,7 +40,7 @@ namespace Code.Game.Slots
 
         public void LaunchMiniGame()
         {
-            int level = GetLevel();
+            int level = GetLevel() - 1;
             _minigameInfo[level].Layout.SetActive(true);
             _minigameLayout.SetActive(true);
         }
@@ -101,15 +100,33 @@ namespace Code.Game.Slots
                 item.ShowMultiplier();
                 multipliers += item.Multiplier;
             }
+            foreach (Slot item in mainAndSecondMatches.Item2)
+            {
+                item.ShowSecondMultiplier();
+                AdditionalMultipliers += item.Multiplier;
+            }
+
             if (multipliers > 0)
             {
                 int winnings = (int)(multipliers * _bet.Value);
+                if (PlayerCurrency.Amount + winnings < _bet.MinBet)
+                {
+                    int diff = _bet.MinBet - (PlayerCurrency.Amount + winnings);
+                    winnings += (int)(UnityEngine.Random.Range(1, 1.3f) * diff);
+                }
                 _winningPopUp.InitializeWinning(winnings);
                 _winningPopUp.gameObject.SetActive(true);
                 PlayerCurrency.Add(winnings);
             }
 
-            AdditionalMultipliers += mainAndSecondMatches.Item2.Sum(s => s.Data.Multiplier);
+            if (PlayerCurrency.Amount < _bet.MinBet)
+            {
+                int winnings = (int)(_bet.MinBet * UnityEngine.Random.Range(1, 1.3f));
+                _winningPopUp.InitializeWinning(winnings);
+                _winningPopUp.gameObject.SetActive(true);
+                PlayerCurrency.Add(winnings);
+            }
+
             UpdateMiniGameSlider();
             _spinButton.interactable = true;
             _bet.EnableButtons();

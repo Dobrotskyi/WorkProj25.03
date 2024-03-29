@@ -7,6 +7,7 @@ namespace Code.Game
         [SerializeField] private LineRenderer _renderer;
         [SerializeField] private float _minDistance = 0.1f;
         [SerializeField] private float _sensetivity = 0.5f;
+        [SerializeField] private Transform _fromPosition;
         private Vector2 _previousPosition;
         private Vector2 _startPosition = Vector2.zero;
         private bool _isOn = true;
@@ -20,17 +21,13 @@ namespace Code.Game
             _isOn = true;
             _renderer.positionCount = 1;
             _renderer.SetPosition(0, startPosition);
+            _previousPosition = _renderer.GetPosition(0);
         }
 
         public void TurnOff()
         {
             _renderer.positionCount = 1;
             _isOn = false;
-        }
-
-        private void OnEnable()
-        {
-            _previousPosition = _renderer.GetPosition(0);
         }
 
         private void Update()
@@ -49,6 +46,7 @@ namespace Code.Game
             if (Vector2.Distance(currentPosition, _startPosition) < _minDistance)
                 return;
 
+            Debug.Log("Draw");
             Vector2 diff = currentPosition - _startPosition;
             diff *= _sensetivity;
             _renderer.positionCount++;

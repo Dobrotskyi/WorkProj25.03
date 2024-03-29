@@ -78,9 +78,9 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Positions:
-  - {x: 0, y: 0, z: 0}
+  - {x: 1.15, y: -3.1, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.1
@@ -155,3 +155,4 @@ MonoBehaviour:
   _renderer: {fileID: 8424747309765205641}
   _minDistance: 0.1
   _sensetivity: 0.8
+  Blocked: 0

@@ -1,3 +1,4 @@
+using Code.Game.Slots;
 using Code.UI;
 using System;
 using System.Collections;
@@ -18,6 +19,12 @@ namespace Code.Game
         [SerializeField] private float _bet = 100;
         [SerializeField] private Rigidbody2D _collisionDummy;
         private Button _closeButton;
+        private SlotGame _game;
+
+        private void Awake()
+        {
+            _game = FindObjectOfType<SlotGame>();
+        }
 
         private void OnEnable()
         {
@@ -43,8 +50,10 @@ namespace Code.Game
         {
             if (Vector2.Distance(_to.position, _drawer.WorldSpaceCurrentPositon) < _minDistance)
             {
-                _popUp.InitializeWinning((int)_bet);
+                int winning = (int)(_game.AdditionalMultipliers * _bet);
+                _popUp.InitializeWinning(winning);
                 _popUp.gameObject.SetActive(true);
+                PlayerCurrency.Add(winning);
                 Close();
             }
         }

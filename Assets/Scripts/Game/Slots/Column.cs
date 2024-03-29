@@ -16,6 +16,7 @@ namespace Code.Game.Slots
         [SerializeField] private VerticalLayoutGroup _movingPart;
         [SerializeField] private AnimationCurve _spinningCurve;
         [SerializeField] private SlotsCatalog _catalog;
+        [SerializeField] private AudioSource _as;
         private RectTransform _movingPartRect;
 
         public bool IsSpinning { private set; get; }
@@ -67,6 +68,7 @@ namespace Code.Game.Slots
             yield return new WaitForEndOfFrame();
             IsSpinning = false;
             Stoped?.Invoke();
+            _as.Play();
         }
 
         private IEnumerator SpawnNextSlotPart()

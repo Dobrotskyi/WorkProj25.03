@@ -14,6 +14,7 @@ namespace Code.UI
         private int _value = 100;
 
         public int Value => _value;
+        public int MinBet => _defaultStep;
 
         public void DisableButtons()
         {
