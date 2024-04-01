@@ -38,6 +38,7 @@ namespace Code.Game
             _collisionDummy.GetComponent<DummyCollisionHandler>().Entered -= OnDummyTriggerEnter;
             if (_closeButton != null)
                 _closeButton.onClick.RemoveListener(Close);
+            _drawer.TurnOff();
         }
 
         private IEnumerator SetStartPosition()
@@ -74,7 +75,6 @@ namespace Code.Game
 
         private void Close()
         {
-            _drawer.TurnOff();
             gameObject.SetActive(false);
             LevelFinished?.Invoke(false);
         }

@@ -24,6 +24,8 @@ namespace Code.Game.Slots
         private CombinationsFinder _finder;
         private float _additionalMultipliers = 0;
 
+        private LevelReducer _reducer;
+
         public bool InRound { private set; get; }
         public float AdditionalMultipliers
         {
@@ -34,7 +36,6 @@ namespace Code.Game.Slots
                 if (value > max)
                     value = max;
                 _additionalMultipliers = value;
-
             }
         }
 
@@ -43,6 +44,23 @@ namespace Code.Game.Slots
             int level = GetLevel() - 1;
             _minigameInfo[level].Layout.SetActive(true);
             _minigameLayout.SetActive(true);
+        }
+
+
+        public int GetLevel()
+        {
+            for (int i = 0; i < _minigameInfo.Count; i++)
+                if (AdditionalMultipliers < _minigameInfo[i].Multipliers)
+                {
+                    if (i == 0)
+                        return 0;
+                    if (i == 1)
+                        return _minigameInfo[i - 1].Level;
+                    else
+                        return _minigameInfo[i - 1].Level - _reducer.Reduce;
+                }
+
+            return _minigameInfo[_minigameInfo.Count - 1].Level - _reducer.Reduce;
         }
 
         public void StartGame()
@@ -57,6 +75,19 @@ namespace Code.Game.Slots
             PlayerCurrency.Withdraw(_bet.Value);
         }
 
+        public void ReduceLevel()
+        {
+            if (!_minigameLayout.gameObject.activeSelf)
+                return;
+
+            if (_reducer.TryUse())
+            {
+
+            }
+
+            UpdateMiniGameSlider();
+        }
+
         private IEnumerator StartSpinning()
         {
             foreach (Column column in _columns)
@@ -68,6 +99,7 @@ namespace Code.Game.Slots
 
         private void Awake()
         {
+            _reducer = new(this);
             _finder = new();
             _miniGameSlider.Init(_minigameInfo[0].Multipliers);
         }
@@ -88,6 +120,7 @@ namespace Code.Game.Slots
         {
             _minigameLayout.SetActive(false);
             AdditionalMultipliers = 0;
+            _reducer.Reset();
             UpdateMiniGameSlider();
         }
 
@@ -135,21 +168,8 @@ namespace Code.Game.Slots
 
         private void UpdateMiniGameSlider()
         {
-            _miniGameSlider.SetValue(AdditionalMultipliers);
+            _miniGameSlider.SetValue(AdditionalMultipliers, _minigameInfo[GetLevel()].Multipliers);
             _miniGameSlider.SetLevel(GetLevel());
-        }
-
-        private int GetLevel()
-        {
-            for (int i = 0; i < _minigameInfo.Count; i++)
-                if (AdditionalMultipliers < _minigameInfo[i].Multipliers)
-                {
-                    if (i == 0)
-                        return 0;
-                    return _minigameInfo[i - 1].Level;
-                }
-
-            return _minigameInfo[_minigameInfo.Count - 1].Level;
         }
 
 #if UNITY_EDITOR

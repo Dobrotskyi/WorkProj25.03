@@ -12,15 +12,19 @@ namespace Code.Game.Slots
         [SerializeField] private Image _fillImage;
         [SerializeField] private TextMeshProUGUI _levelField;
         [SerializeField] private Button _button;
+        private int _level = 0;
 
-        public void SetValue(float value)
+        public void SetValue(float value, float maxValue)
         {
+            _slider.maxValue = maxValue;
             _slider.value = value;
         }
 
-        public void SetLevel(float level)
+        public void SetLevel(int level)
         {
+            _level = level;
             _levelField.text = level.ToString();
+            OnValueChanged();
         }
 
         public void Init(float max)
@@ -39,16 +43,12 @@ namespace Code.Game.Slots
                     _fillImage.sprite = _defaultFill;
             }
 
-            if (_slider.value == _slider.maxValue && !_button.interactable)
-            {
-                if (!_button.interactable)
-                    _button.interactable = true;
-            }
-            else
-            {
-                if (_button.interactable)
-                    _button.interactable = false;
-            }
+            Debug.Log(_level);
+            if (_level >= 1 && !_button.interactable)
+                _button.interactable = true;
+
+            else if (_level == 0 && _button.interactable)
+                _button.interactable = false;
         }
 
         private void OnValidate()
