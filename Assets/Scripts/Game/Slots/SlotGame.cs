@@ -26,6 +26,7 @@ namespace Code.Game.Slots
         private float _additionalMultipliers = 0;
 
         private LevelReducer _reducer;
+        private Shield _shield;
 
         public bool InRound { private set; get; }
         public float AdditionalMultipliers
@@ -94,6 +95,14 @@ namespace Code.Game.Slots
             UpdateMiniGameSlider();
         }
 
+        public void UseShield()
+        {
+            if (!_minigameLayout.activeSelf)
+                return;
+            if (_shield.CanUse())
+                _shield.TryUse();
+        }
+
         private IEnumerator StartSpinning()
         {
             foreach (Column column in _columns)
@@ -106,6 +115,7 @@ namespace Code.Game.Slots
         private void Awake()
         {
             _reducer = new(this);
+            _shield = new();
             _finder = new();
             _miniGameSlider.Init(_minigameInfo[0].Multipliers);
         }
@@ -124,6 +134,16 @@ namespace Code.Game.Slots
 
         private void OnLevelFinished(bool finished)
         {
+            Debug.Log(finished);
+            if (Shield.IsActive && finished == false)
+            {
+                var current = _minigameInfo.Select(i => i.Layout).First(l => l.activeSelf);
+                current.gameObject.SetActive(false);
+                current.gameObject.SetActive(true);
+                Shield.Reset();
+                return;
+            }
+            Shield.Reset();
             _minigameLayout.SetActive(false);
             AdditionalMultipliers = 0;
             _reducer.Reset();

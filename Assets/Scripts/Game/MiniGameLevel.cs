@@ -55,7 +55,8 @@ namespace Code.Game
                 _popUp.InitializeWinning(winning);
                 _popUp.gameObject.SetActive(true);
                 PlayerCurrency.Add(winning);
-                Close();
+                gameObject.SetActive(false);
+                LevelFinished?.Invoke(true);
             }
         }
 
@@ -66,6 +67,11 @@ namespace Code.Game
 
         private void OnDummyTriggerEnter()
         {
+            if (Shield.IsActive)
+            {
+                LevelFinished?.Invoke(false);
+                return;
+            }
             _drawer.Blocked = true;
             _losingPopUp.LosingText();
             _losingPopUp.gameObject.SetActive(true);

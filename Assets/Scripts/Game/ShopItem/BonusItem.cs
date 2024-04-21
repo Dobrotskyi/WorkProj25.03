@@ -76,4 +76,34 @@ namespace Code.Game
             Reduce++;
         }
     }
+
+    public class Shield : BonusItem
+    {
+        public override string Key => "Shield";
+        public static bool IsActive { private set; get; }
+        public static event Action<bool> Changed;
+
+        public static void Reset()
+        {
+            IsActive = false;
+            Changed?.Invoke(false);
+        }
+
+        protected override bool AdditionalCheck()
+        {
+            if (IsActive) return false;
+            return true;
+        }
+
+        protected override void Use()
+        {
+            s_Used();
+        }
+
+        private static void s_Used()
+        {
+            IsActive = true;
+            Changed?.Invoke(true);
+        }
+    }
 }

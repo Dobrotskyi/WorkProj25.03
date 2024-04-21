@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Code.Game
 {
@@ -8,6 +9,7 @@ namespace Code.Game
         [SerializeField] private float _minDistance = 0.1f;
         [SerializeField] private float _sensetivity = 0.5f;
         [SerializeField] private Transform _fromPosition;
+        [SerializeField] private Image _shieldIcon;
         private Vector2 _previousPosition;
         private Vector2 _startPosition = Vector2.zero;
         private bool _isOn = true;
@@ -37,6 +39,21 @@ namespace Code.Game
                 if (Input.touches[0].phase == TouchPhase.Began)
                     _startPosition = Camera.main.ScreenToWorldPoint(Input.touches[0].position);
                 Draw();
+            }
+        }
+
+        private void LateUpdate()
+        {
+            _shieldIcon.transform.position = _renderer.GetPosition(_renderer.positionCount - 1);
+            if (Shield.IsActive)
+            {
+                if (!_shieldIcon.enabled)
+                    _shieldIcon.enabled = true;
+            }
+            else
+            {
+                if (_shieldIcon.enabled)
+                    _shieldIcon.enabled = false;
             }
         }
 
