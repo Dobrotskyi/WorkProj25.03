@@ -10,6 +10,8 @@ namespace Code.Game
         [SerializeField] private float _sensetivity = 0.5f;
         [SerializeField] private Transform _fromPosition;
         [SerializeField] private Image _shieldIcon;
+        [SerializeField] private Image _ghostIcon;
+
         private Vector2 _previousPosition;
         private Vector2 _startPosition = Vector2.zero;
         private bool _isOn = true;
@@ -44,16 +46,29 @@ namespace Code.Game
 
         private void LateUpdate()
         {
-            _shieldIcon.transform.position = _renderer.GetPosition(_renderer.positionCount - 1);
+            Vector3 lastPos = _renderer.GetPosition(_renderer.positionCount - 1);
+            _shieldIcon.transform.position = lastPos;
+            _ghostIcon.transform.position = lastPos;
             if (Shield.IsActive)
             {
-                if (!_shieldIcon.enabled)
-                    _shieldIcon.enabled = true;
+                if (!_shieldIcon.gameObject.activeSelf)
+                    _shieldIcon.gameObject.SetActive(true);
             }
             else
             {
-                if (_shieldIcon.enabled)
-                    _shieldIcon.enabled = false;
+                if (_shieldIcon.gameObject.activeSelf)
+                    _shieldIcon.gameObject.SetActive(false);
+            }
+
+            if (Ghost.IsActive)
+            {
+                if (!_ghostIcon.gameObject.activeSelf)
+                    _ghostIcon.gameObject.SetActive(true);
+            }
+            else
+            {
+                if (_ghostIcon.gameObject.activeSelf)
+                    _ghostIcon.gameObject.SetActive(false);
             }
         }
 

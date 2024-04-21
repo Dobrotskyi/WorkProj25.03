@@ -91,7 +91,7 @@ namespace Code.Game
 
         protected override bool AdditionalCheck()
         {
-            if (IsActive) return false;
+            if (IsActive || Ghost.IsActive) return false;
             return true;
         }
 
@@ -104,6 +104,23 @@ namespace Code.Game
         {
             IsActive = true;
             Changed?.Invoke(true);
+        }
+    }
+
+    public class Ghost : BonusItem
+    {
+        public override string Key => "Ghost";
+        public static bool IsActive { private set; get; }
+
+        protected override bool AdditionalCheck()
+        {
+            if (IsActive || Shield.IsActive) return false;
+            return true;
+        }
+
+        protected override void Use()
+        {
+            IsActive = true;
         }
     }
 }
