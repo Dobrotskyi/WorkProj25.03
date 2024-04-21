@@ -2,6 +2,7 @@ using Code.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -77,12 +78,17 @@ namespace Code.Game.Slots
 
         public void ReduceLevel()
         {
-            if (!_minigameLayout.gameObject.activeSelf)
+            Debug.Log("Reduce Level");
+            if (!_minigameLayout.activeSelf)
                 return;
 
-            if (_reducer.TryUse())
+            _minigameInfo.Select(i => i.Layout).
+                          Where(l => l.activeSelf).ToList().
+                          ForEach(l => l.SetActive(false));
+            if (_reducer.CanUse())
             {
-
+                _reducer.TryUse();
+                LaunchMiniGame();
             }
 
             UpdateMiniGameSlider();
@@ -168,12 +174,22 @@ namespace Code.Game.Slots
 
         private void UpdateMiniGameSlider()
         {
-            _miniGameSlider.SetValue(AdditionalMultipliers, _minigameInfo[GetLevel()].Multipliers);
-            _miniGameSlider.SetLevel(GetLevel());
+            Debug.Log(GetLevel());
+            int level = GetLevel();
+
+            if (AdditionalMultipliers < _minigameInfo[0].Multipliers)
+                _miniGameSlider.SetLevel(0);
+            else
+                _miniGameSlider.SetLevel(level);
+            if (level > _minigameInfo.Count - 1)
+                level = _minigameInfo.Count - 1;
+
+            _miniGameSlider.SetValue(AdditionalMultipliers, _minigameInfo[level].Multipliers);
         }
 
 #if UNITY_EDITOR
         public bool TestFinder;
+        public float AddToAdditional = -1f;
 
         private void Update()
         {
@@ -181,6 +197,13 @@ namespace Code.Game.Slots
             {
                 TestFinder = false;
                 _finder.FindInColumns(_columns);
+            }
+
+            if (AddToAdditional != -1f)
+            {
+                AdditionalMultipliers += AddToAdditional;
+                UpdateMiniGameSlider();
+                AddToAdditional = -1f;
             }
         }
 #endif

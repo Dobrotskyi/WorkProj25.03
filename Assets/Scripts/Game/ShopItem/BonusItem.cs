@@ -9,6 +9,7 @@ namespace Code.Game
         public event Action Used;
 
         public abstract string Key { get; }
+
         public int Amount
         {
             private set
@@ -20,17 +21,28 @@ namespace Code.Game
             get => PlayerPrefs.GetInt(Key, 0);
         }
 
-        public bool TryUse()
+        public static int GetAmount(BonusItem item)
+        {
+            return PlayerPrefs.GetInt(item.Key, 0);
+        }
+
+        public bool CanUse()
         {
             //if (!AdditionalCheck() || Amount < 1)
             //    return false;
             if (!AdditionalCheck())
                 return false;
+            return true;
+        }
+
+        public void TryUse()
+        {
+            if (!CanUse())
+                return;
 
             Use();
             PlayerPrefs.SetInt(Key, Amount - 1);
             Used?.Invoke();
-            return true;
         }
 
         protected virtual bool AdditionalCheck() => true;

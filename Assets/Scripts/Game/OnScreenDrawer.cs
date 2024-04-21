@@ -46,7 +46,6 @@ namespace Code.Game
             if (Vector2.Distance(currentPosition, _startPosition) < _minDistance)
                 return;
 
-            Debug.Log("Draw");
             Vector2 diff = currentPosition - _startPosition;
             diff *= _sensetivity;
             _renderer.positionCount++;
