@@ -76,7 +76,6 @@ namespace Code.Sound
 
         private void PlayClickSound()
         {
-            Debug.Log("Click");
             _clickAS.Play();
         }
     }

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Code.Game.Slots
 {
@@ -55,8 +54,6 @@ namespace Code.Game.Slots
             }
 
             otherMatches.ExceptWith(mainMatches);
-            Debug.Log($"Main matches {mainMatches.Count}");
-            Debug.Log($"Other matches {otherMatches.Count}");
             return (mainMatches, otherMatches);
         }
 

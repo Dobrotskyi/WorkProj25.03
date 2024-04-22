@@ -12,6 +12,6 @@ public class DummyCollisionHandler : MonoBehaviour
             return;
         Entered?.Invoke();
         if (_explosionEffect != null)
-            Instantiate(_explosionEffect, collision.transform.position, Quaternion.identity);
+            Instantiate(_explosionEffect, transform.position, Quaternion.identity);
     }
 }

@@ -11,6 +11,7 @@ namespace Code.Game
         [SerializeField] private Transform _fromPosition;
         [SerializeField] private Image _shieldIcon;
         [SerializeField] private Image _ghostIcon;
+        [SerializeField] private Image _defaultFace;
 
         private Vector2 _previousPosition;
         private Vector2 _startPosition = Vector2.zero;
@@ -49,6 +50,7 @@ namespace Code.Game
             Vector3 lastPos = _renderer.GetPosition(_renderer.positionCount - 1);
             _shieldIcon.transform.position = lastPos;
             _ghostIcon.transform.position = lastPos;
+            _defaultFace.transform.position = lastPos;
             if (Shield.IsActive)
             {
                 if (!_shieldIcon.gameObject.activeSelf)
@@ -69,6 +71,17 @@ namespace Code.Game
             {
                 if (_ghostIcon.gameObject.activeSelf)
                     _ghostIcon.gameObject.SetActive(false);
+            }
+
+            if (!Ghost.IsActive && !Shield.IsActive)
+            {
+                if (!_defaultFace.gameObject.activeSelf)
+                    _defaultFace.gameObject.SetActive(true);
+            }
+            else
+            {
+                if (_defaultFace.gameObject.activeSelf)
+                    _defaultFace.gameObject.SetActive(false);
             }
         }
 

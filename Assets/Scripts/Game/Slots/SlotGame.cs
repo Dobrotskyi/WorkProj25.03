@@ -84,9 +84,10 @@ namespace Code.Game.Slots
             if (!_minigameLayout.activeSelf)
                 return;
 
-            _minigameInfo.Select(i => i.Layout).
-                          Where(l => l.activeSelf).ToList().
-                          ForEach(l => l.SetActive(false));
+            if (GetLevel() != 1)
+                _minigameInfo.Select(i => i.Layout).
+                              Where(l => l.activeSelf).ToList().
+                              ForEach(l => l.SetActive(false));
             if (_reducer.CanUse())
             {
                 _reducer.TryUse();
@@ -144,7 +145,6 @@ namespace Code.Game.Slots
 
         private void OnLevelFinished(bool finished)
         {
-            Debug.Log(finished);
             if (Shield.IsActive && finished == false)
             {
                 var current = _minigameInfo.Select(i => i.Layout).First(l => l.activeSelf);
@@ -204,7 +204,6 @@ namespace Code.Game.Slots
 
         private void UpdateMiniGameSlider()
         {
-            Debug.Log(GetLevel());
             int level = GetLevel();
 
             if (AdditionalMultipliers < _minigameInfo[0].Multipliers)

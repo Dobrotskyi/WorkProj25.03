@@ -9,6 +9,7 @@ namespace Code.Game
         public event Action Used;
 
         public abstract string Key { get; }
+        public abstract int Price { get; }
 
         public int Amount
         {
@@ -24,6 +25,11 @@ namespace Code.Game
         public static int GetAmount(BonusItem item)
         {
             return PlayerPrefs.GetInt(item.Key, 0);
+        }
+
+        public void Buy()
+        {
+            PlayerPrefs.SetInt(Key, GetAmount(this) + 1);
         }
 
         public bool CanUse()
@@ -52,22 +58,26 @@ namespace Code.Game
 
     public class LevelReducer : BonusItem
     {
-        private SlotGame _game;
+        private static SlotGame _game;
 
         public LevelReducer(SlotGame game)
         {
+            if (game == null)
+                return;
             _game = game;
         }
 
         public override string Key => "LevelReducer";
+        public override int Price => 300;
         public int Reduce { private set; get; } = 0;
 
         public void Reset() => Reduce = 0;
 
         protected override bool AdditionalCheck()
         {
-            if (_game.GetLevel() <= 1)
-                return false;
+            if (_game != null)
+                if (_game.GetLevel() <= 1)
+                    return false;
             return true;
         }
 
@@ -80,6 +90,7 @@ namespace Code.Game
     public class Shield : BonusItem
     {
         public override string Key => "Shield";
+        public override int Price => 500;
         public static bool IsActive { private set; get; }
         public static event Action<bool> Changed;
 
@@ -110,6 +121,7 @@ namespace Code.Game
     public class Ghost : BonusItem
     {
         public override string Key => "Ghost";
+        public override int Price => 500;
         public static bool IsActive { private set; get; }
 
         protected override bool AdditionalCheck()

@@ -43,7 +43,6 @@ namespace Code.Game.Slots
                     _fillImage.sprite = _defaultFill;
             }
 
-            Debug.Log(_level);
             if (_level >= 1 && !_button.interactable)
                 _button.interactable = true;
 
