@@ -28,7 +28,7 @@ namespace Code.UI
                 _notEnoughMoney.gameObject.SetActive(true);
                 return;
             }
-
+            PlayerCurrency.Withdraw(_item.Price);
             _item.Buy();
         }
 

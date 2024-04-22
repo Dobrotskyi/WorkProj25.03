@@ -34,9 +34,7 @@ namespace Code.Game
 
         public bool CanUse()
         {
-            //if (!AdditionalCheck() || Amount < 1)
-            //    return false;
-            if (!AdditionalCheck())
+            if (!AdditionalCheck() || Amount < 1)
                 return false;
             return true;
         }
@@ -121,7 +119,7 @@ namespace Code.Game
     public class Ghost : BonusItem
     {
         public override string Key => "Ghost";
-        public override int Price => 500;
+        public override int Price => 1000;
         public static bool IsActive { private set; get; }
 
         protected override bool AdditionalCheck()
