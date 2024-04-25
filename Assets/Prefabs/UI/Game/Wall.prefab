@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 194, y: 221.61}
-  m_SizeDelta: {x: 3.22, y: 1.06}
+  m_AnchoredPosition: {x: 121.34196, y: 201.49391}
+  m_SizeDelta: {x: 6.3424, y: 0.6576}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &4338021557799125260
 BoxCollider2D:
@@ -111,8 +111,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fae488cb592f349298fcacc3012bd0da, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: b186ac4bc17b843488fc02e5559ff6f3, type: 3}
+  m_Type: 2
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -120,4 +120,4 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 5
