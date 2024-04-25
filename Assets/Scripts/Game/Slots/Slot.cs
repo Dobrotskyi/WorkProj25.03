@@ -35,6 +35,8 @@ namespace Code.Game.Slots
 
         public void ShowSecondMultiplier()
         {
+            if (_data.Multiplier == 0)
+                return;
             _secondMultiplierField.text = _data.Multiplier.ToString();
             _secondMultiplierField.gameObject.SetActive(true);
         }
