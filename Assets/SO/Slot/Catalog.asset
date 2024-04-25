@@ -16,10 +16,10 @@ MonoBehaviour:
   - _key: {fileID: 11400000, guid: 355d6fc23e6426746ab868a6149a7f73, type: 2}
     _value: 0.15
   - _key: {fileID: 11400000, guid: f3fb9ea8961120846a258010d494042a, type: 2}
-    _value: 0.1
+    _value: 0.2
   - _key: {fileID: 11400000, guid: 71ef5a8aa60e59e4a9cabc31faa8e785, type: 2}
-    _value: 0.1
+    _value: 0.3
   - _key: {fileID: 11400000, guid: 2fbc0e5603a48324dbd4c654a8f73e62, type: 2}
     _value: 0.05
   - _key: {fileID: 11400000, guid: ba8dec928ea14a8499b0b33ea49c68c9, type: 2}
-    _value: 0.6
+    _value: 0.3

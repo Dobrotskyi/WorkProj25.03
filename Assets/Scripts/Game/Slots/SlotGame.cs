@@ -154,6 +154,8 @@ namespace Code.Game.Slots
                 return;
             }
             Shield.Reset();
+            Ghost.Reset();
+
             _minigameLayout.SetActive(false);
             AdditionalMultipliers = 0;
             _reducer.Reset();

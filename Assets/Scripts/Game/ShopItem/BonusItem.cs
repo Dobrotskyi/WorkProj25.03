@@ -122,6 +122,11 @@ namespace Code.Game
         public override int Price => 1000;
         public static bool IsActive { private set; get; }
 
+        public static void Reset()
+        {
+            IsActive = false;
+        }
+
         protected override bool AdditionalCheck()
         {
             if (IsActive || Shield.IsActive) return false;
