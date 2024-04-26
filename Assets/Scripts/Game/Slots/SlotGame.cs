@@ -13,7 +13,6 @@ namespace Code.Game.Slots
         private const float SPINNING_DELAY = 0.2f;
 
         public static event Action SpinStarted;
-        public static event Action SpinEnded;
 
         [SerializeField] private List<Column> _columns = new();
         [SerializeField] private Button _spinButton;
