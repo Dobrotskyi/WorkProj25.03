@@ -28,7 +28,7 @@ namespace Code.Sound
         }
         private static SoundManager s_instance;
 
-        private readonly Dictionary<SoundSettingType, string> s_mixerKeys =
+        private readonly Dictionary<SoundSettingType, string> _mixerKeys =
                          new() { { SoundSettingType.Music, "MusicVolume" },
                                  { SoundSettingType.SFX, "SFXVolume" } };
 
@@ -38,8 +38,7 @@ namespace Code.Sound
 
         public bool Unmuted(SoundSettingType type)
         {
-            float value;
-            _mixer.GetFloat(s_mixerKeys[type], out value);
+            _mixer.GetFloat(_mixerKeys[type], out float value);
             return value == UNMUTED;
         }
 
@@ -70,7 +69,7 @@ namespace Code.Sound
         private void OnSoundSettingToggled(SoundSettingType type)
         {
             float newValue = Unmuted(type) ? MUTED : UNMUTED;
-            _mixer.SetFloat(s_mixerKeys[type], newValue);
+            _mixer.SetFloat(_mixerKeys[type], newValue);
             SettingChanged?.Invoke();
         }
 

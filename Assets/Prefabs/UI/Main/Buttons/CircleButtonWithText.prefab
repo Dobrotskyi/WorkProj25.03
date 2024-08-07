@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 200142976986111975, guid: 7933f7f572f05404e8fcf9df80277f4e, type: 3}
       propertyPath: m_fontSize
-      value: 266.9
+      value: 235.2
       objectReference: {fileID: 0}
     - target: {fileID: 6487782550574272728, guid: 7933f7f572f05404e8fcf9df80277f4e, type: 3}
       propertyPath: m_Pivot.x
@@ -103,10 +103,10 @@ PrefabInstance:
     - target: {fileID: 6853038734404358300, guid: 7933f7f572f05404e8fcf9df80277f4e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 2d95c3b956a3c3b49b3219fc06c940ea, type: 3}
+      objectReference: {fileID: 21300000, guid: 21b986d9b6f555549ba46686b9a32adf, type: 3}
     - target: {fileID: 6996095728000009350, guid: 7933f7f572f05404e8fcf9df80277f4e, type: 3}
       propertyPath: m_Name
-      value: PlayButton Variant
+      value: CircleButtonWithText
       objectReference: {fileID: 0}
     - target: {fileID: 7746701803006572840, guid: 7933f7f572f05404e8fcf9df80277f4e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
