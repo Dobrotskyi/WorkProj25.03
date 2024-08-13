@@ -216,26 +216,5 @@ namespace Code.Game.Slots
 
             _miniGameSlider.SetValue(AdditionalMultipliers, _minigameInfo[level].Multipliers);
         }
-
-#if UNITY_EDITOR
-        public bool TestFinder;
-        public float AddToAdditional = -1f;
-
-        private void Update()
-        {
-            if (TestFinder)
-            {
-                TestFinder = false;
-                _finder.FindInColumns(_columns);
-            }
-
-            if (AddToAdditional != -1f)
-            {
-                AdditionalMultipliers += AddToAdditional;
-                UpdateMiniGameSlider();
-                AddToAdditional = -1f;
-            }
-        }
-#endif
     }
 }

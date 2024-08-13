@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6757642193652708445}
   - component: {fileID: 6812216669615968594}
   - component: {fileID: 571935052451351002}
-  - component: {fileID: 8303293223632246981}
+  - component: {fileID: 7183116964122819113}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5ad7c676f3d14ba4bb4ea46f0a70a107, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1cae827eb87260c40baea4b308232613, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8303293223632246981
+--- !u!114 &7183116964122819113
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,4 +89,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 4
-  m_AspectRatio: 0.46182266
+  m_AspectRatio: 0.5604395

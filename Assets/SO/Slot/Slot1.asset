@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d79560b84695c2d4099988f82fec61a1, type: 3}
   m_Name: Slot1
   m_EditorClassIdentifier: 
-  _icon: {fileID: -1446147005, guid: 13c7ef59fbc58b04e9a372ea4bf5dbe7, type: 3}
+  _icon: {fileID: 1941786556, guid: 88e5483701df26440a853ac1d5cb8a59, type: 3}
   _multiplier: 0.05

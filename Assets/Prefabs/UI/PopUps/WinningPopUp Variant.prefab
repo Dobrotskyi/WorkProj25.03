@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1058950788048305901, guid: d6eb298b19777434ab7cd1861699dc77, type: 3}
       propertyPath: m_fontSize
-      value: 83.95
+      value: 83.05
       objectReference: {fileID: 0}
     - target: {fileID: 2090957687470601345, guid: d6eb298b19777434ab7cd1861699dc77, type: 3}
       propertyPath: m_Name
@@ -327,10 +327,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Close
       objectReference: {fileID: 0}
-    - target: {fileID: 3487765853920057193, guid: cab57db1165ac394294711a313aa2700, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 08af222683dfe664ba909eac21329481, type: 3}
     - target: {fileID: 3498153168112464682, guid: cab57db1165ac394294711a313aa2700, type: 3}
       propertyPath: m_SizeDelta.y
       value: 56.1
@@ -445,7 +441,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7748985027913296628, guid: cab57db1165ac394294711a313aa2700, type: 3}
       propertyPath: m_fontSize
-      value: 78.35
+      value: 75.5
       objectReference: {fileID: 0}
     - target: {fileID: 7748985027913296628, guid: cab57db1165ac394294711a313aa2700, type: 3}
       propertyPath: m_enableAutoSizing
@@ -457,7 +453,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7754952538010027784, guid: cab57db1165ac394294711a313aa2700, type: 3}
       propertyPath: m_fontSize
-      value: 124.95
+      value: 122.3
       objectReference: {fileID: 0}
     - target: {fileID: 8731404019180214946, guid: cab57db1165ac394294711a313aa2700, type: 3}
       propertyPath: m_Name
